@@ -47,14 +47,17 @@ public class FakePersonDataAccessService implements PersonDAO{
     }
 
     @Override
-    public int updatePersonByID(UUID id, Person person) {
+    public Person updatePersonByID(UUID id, Person person) {
         Optional<Person> personMaybe = selectPersonByID(id);
         if (personMaybe.isEmpty()){
-            return 0;
+            return null;
         }
         int idxToUpdate = DB.indexOf(personMaybe.get());
         DB.set(idxToUpdate, new Person(id, person.getName()));
-        return 1;
+        return new Person(
+                id,
+                person.getName()
+        );
     }
 
 

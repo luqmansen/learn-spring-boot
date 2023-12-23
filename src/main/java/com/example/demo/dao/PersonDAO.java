@@ -20,7 +20,7 @@ public interface PersonDAO {
     Optional<Person> selectPersonByID(UUID id);
     int deletePersonByID(UUID id);
 
-    int updatePersonByID(UUID id, Person person);
+    Person updatePersonByID(UUID id, Person person);
 
 
 }

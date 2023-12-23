@@ -79,13 +79,21 @@ public class PersonDataAccessService implements PersonDAO{
     }
 
     @Override
-    public int updatePersonByID(UUID id, Person person) {
+    public Person updatePersonByID(UUID id, Person person) {
         final String sql = "UPDATE person SET name =? where id =?";
 
-        return jdbcTemplate.update(
+        int updated = jdbcTemplate.update(
                 sql,
                 person.getName(),
                 person.getId()
         );
+
+        if (updated == 1){
+            return new Person(
+                    id,
+                    person.getName()
+            );
+        }
+        return null;
     }
 }

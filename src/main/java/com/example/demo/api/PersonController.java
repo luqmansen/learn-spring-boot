@@ -43,8 +43,8 @@ public class PersonController {
     }
 
     @PutMapping(path = "{id}")
-    public void updatePerson(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person person ){
-        personService.updatePerson(id, person);
+    public Person updatePerson(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person person ){
+        return personService.updatePerson(id, person);
     }
 
 
