@@ -23,8 +23,8 @@ public class PersonController {
     }
 
     @PostMapping
-    public void addPerson(@Valid @NotNull @RequestBody Person person){
-        personService.addPerson(person);
+    public Person addPerson(@Valid @NotNull @RequestBody Person person){
+        return personService.addPerson(person);
     }
 
     @GetMapping

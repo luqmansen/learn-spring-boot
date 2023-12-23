@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public interface PersonDAO {
 
-    int insertPerson(UUID id, Person person);
+    Person insertPerson(UUID id, Person person);
 
-    default int insertPerson(Person person){
+    default Person insertPerson(Person person){
         UUID id = UUID.randomUUID();
         return insertPerson(id, person);
     }

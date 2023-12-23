@@ -3,8 +3,11 @@ package com.example.demo.dao;
 import com.example.demo.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,18 +23,20 @@ public class PersonDataAccessService implements PersonDAO{
     }
 
     @Override
-    public int insertPerson(UUID id, Person person) {
-        final String sql = "INSERT INTO person (id, name) values (uuid_generate_v4(), ?);";
+    public Person insertPerson(UUID id, Person person) {
+        final String sql = "INSERT INTO person (id, name) values (uuid_generate_v4(), ?) returning id;";
 
-        return jdbcTemplate.update(
-                sql,
+        UUID returning_uuid = jdbcTemplate.queryForObject(sql, UUID.class, person.getName());
+
+        return new Person(
+                returning_uuid,
                 person.getName()
-        );
+                );
 
     }
 
     @Override
-    public int insertPerson(Person person) {
+    public Person insertPerson(Person person) {
         return PersonDAO.super.insertPerson(person);
     }
 

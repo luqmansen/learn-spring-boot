@@ -13,13 +13,14 @@ public class FakePersonDataAccessService implements PersonDAO{
 
     private static List<Person> DB = new ArrayList<>();
     @Override
-    public int insertPerson(UUID id, Person person) {
-        DB.add(new Person(id, person.getName()));
-        return 1;
+    public Person insertPerson(UUID id, Person person) {
+        Person p =  new Person(id, person.getName());
+        DB.add(p);
+        return p;
     }
 
     @Override
-    public int insertPerson(Person person) {
+    public Person insertPerson(Person person) {
         return PersonDAO.super.insertPerson(person);
     }
 
